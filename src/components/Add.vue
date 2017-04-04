@@ -10,10 +10,11 @@
       <input placeholder="userId" v-model="userId" @input="userId = $event.target.value" type="text"/>
       <div class="clear"></div>
       <label>Description</label>
-      <textarea v-model="desc" @input="desc = $event.target.value"></textarea>
+      <textarea v-model="desc" @input="desc = $event.target.value"></textarea>      
     </form>
     <div class="clear"></div>
     <button @click="submit">Add</button>
+    <br/><br/><br/><br/>
   </div>
 </template>
 
@@ -25,7 +26,7 @@ export default {
   name: 'add',
   data() {
     return {
-      msg: 'Add Vue.js test Project',
+      msg: 'Add Data',
       title: '',
       userId: '',
       desc: '',
@@ -57,23 +58,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h1, h2 {
-  font-weight: normal;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-
-a {
-  color: #42b983;
-}
 form{
   width: 40%;
   margin:auto;
@@ -98,5 +82,12 @@ textarea{
 .clear{
   clear:both;
   margin-bottom: 20px;
+}
+button{
+  margin-right: 206px;
+  background-color: #42b983;
+  color:#FFF;
+  border:none;
+  padding:5px 20px;
 }
 </style>

@@ -14,6 +14,7 @@
     </form>
     <div class="clear"></div>
     <button @click="updateDataById">Update</button>
+    <br/><br/><br/><br/>
   </div>
 </template>
 
@@ -25,26 +26,34 @@ export default {
   name: 'edit',
   data() {
     return {
-      msg: 'Edit Vue.js test Project',
+      msg: 'Edit Data',
       paramsId: this.$route.params.id,
     };
   },
   created() {
-    this.getDataById(this.paramsId);
+    if (!this.fetchLoaded) {
+      window.history.go(-1);
+      this.getDataById(this.paramsId);
+    } else {
+      this.filterData(this.paramsId);
+    }
   },
   computed: {
     ...mapState([
       'filteredData',
+      'fetchLoaded',
     ]),
   },
   methods: {
     ...mapActions([
       'getDataById',
       'updateData',
+      'filterData',
     ]),
     updateDataById: function () {
-      console.log(this.filteredData.title);
-      this.updateData(this.paramsId, {
+      this.updateData({
+        index: this.paramsId,
+        id: this.filteredData.id,
         title: this.filteredData.title,
         body: this.filteredData.body,
         userId: this.filteredData.userId,
@@ -56,23 +65,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h1, h2 {
-  font-weight: normal;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-
-a {
-  color: #42b983;
-}
 form{
   width: 40%;
   margin:auto;
@@ -97,5 +89,12 @@ textarea{
 .clear{
   clear:both;
   margin-bottom: 20px;
+}
+button{
+  margin-right: 188px;
+  background-color: #42b983;
+  color:#FFF;
+  border:none;
+  padding:5px 20px;
 }
 </style>

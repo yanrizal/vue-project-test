@@ -12,27 +12,30 @@ const store = new Vuex.Store({
   },
   mutations: {
     fetchDataSuccess(state, data) {
-      console.log('fetch');
       if (!state.fetchLoaded) {
+        Vue.delete(data, data.length - 1); // remove timestamp
         state.articles = data;
         state.fetchLoaded = true;
       }
     },
     addDataSuccess(state, data) {
-      console.log('addData');
       state.articles = state.articles.concat(data);
+      state.fetchLoaded = true;
+      window.history.go(-1);
+    },
+    updateDataSuccess(state, data) {
+      Vue.set(state.articles, data.index, data);
+      window.history.go(-1);
     },
     getDataByIdSuccess(state, data) {
-      console.log('editData');
       state.filteredData = data;
     },
+    deleteData(state, id) {
+      Vue.delete(state.articles, id);
+    },
     filterData: (state, id) => {
-      console.log('filterData', id);
-      const data = state.articles.filter((item) => {
-        return item.id === 2;
-      });
-      console.log(data[0]);
-      state.filteredData = data[0];
+      const data = state.articles[id];
+      state.filteredData = data;
     },
   },
   actions,
